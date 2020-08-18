@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\asset\main.css">
+    <link rel="shortcut icon" href="//s1.music.126.net/style/favicon.ico?v20180823">
+    <link rel="icon" href="//s1.music.126.net/style/favicon.ico?v20180823" type="image/x-icon">
+    <title>网抑云音乐</title>
+</head>
+<body style="background-color: black;">
+
+    <div id="alllayout">
+
+        <header id="header">
+            <div id="header-div">
+                <div id="header-ico"></div>
+                <span>网抑云音乐</span>
+            </div>
+        </header>
+        <div style="height: 8%;width: 100%;"></div><!-- 占位 -->
+
+        <div id="content-div">
+            <div class="content-box"></div>
+            <div class="content-box"></div>
+        </div>
+        <div id="update">点击更新评论</div>
+    </div>
+    <!-- <div style="font: 0px/0px sans-serif;clear: both;display: block"> </div> -->
+</body>
+
+<script>
+
+init();
+
+
+
+document.querySelector('#update').addEventListener('click',()=>{
+    upDate();
+});
+
+function init(){
+    var BoxArr = document.querySelectorAll('#content-div>.content-box');
+    for (let box of BoxArr){
+        getAPI(box);
+    }    
+}
+
+function getAPI(div){
+    fetch("https://cn1.api.wfblog.net/163.comment.php")
+    .then(res => res.json())
+    .then(res => div.innerText=`${res.data.comment}————歌名：《${res.data.song}》`);
+}
+
+function upDate(){
+    init()
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+</html>
